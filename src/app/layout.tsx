@@ -1,6 +1,7 @@
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LocaleProvider } from "@/i18n/LocaleContext";
 import { siteConfig } from "@/data/profile";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Syne } from "next/font/google";
@@ -64,10 +65,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${jetbrains.variable} ${syne.variable} relative min-h-screen`}
       >
-        <AmbientBackground />
-        <Header />
-        <main className="relative z-10">{children}</main>
-        <Footer />
+        <LocaleProvider>
+          <AmbientBackground />
+          <Header />
+          <main className="relative z-10">{children}</main>
+          <Footer />
+        </LocaleProvider>
       </body>
     </html>
   );

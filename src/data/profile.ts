@@ -1,6 +1,6 @@
 import type { NavLink, Profile } from "@/types";
 
-export const GITHUB_USERNAME = "IT-JuanDoo";
+export const GITHUB_USERNAME = "XuanDu2005";
 export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
 
 export const siteConfig = {
@@ -8,7 +8,7 @@ export const siteConfig = {
   handle: "Cao Xuan Du",
   monogram: "CXD",
   description:
-    "Portfolio cá nhân của Cao Xuân Dự — Backend, APIs, databases & scalable architecture",
+    "Portfolio của Cao Xuân Dự — Full-Stack Developer Intern (React, TypeScript, Node.js, NestJS, PHP)",
   url: "https://portfolio.vercel.app",
 };
 
@@ -22,20 +22,24 @@ export const navLinks: NavLink[] = [
 
 export const profile: Profile = {
   name: "Cao Xuan Du",
-  title: "Developer Intern",
+  title: "Full-Stack Developer Intern",
   badge: "CXD · DEVELOPER",
   tagline: "Information Technology",
   typingPhrases: [
-    "A student at University of Transport Ho Chi Minh City (UTH)",
-    "Building APIs with C#, TypeScript & PHP.",
+    "Student at Ho Chi Minh City University of Transport (UTH)",
+    "Full-Stack Developer Intern — React, TypeScript, Node.js & PHP.",
+    "Building scalable, secure web apps with NestJS & PostgreSQL.",
   ],
-  focusLine: "Information Technology",
-  email: "ducx5494@ut.edu.vn",
+  focusLine: "Information Technology · UTH",
+  email: "pherocaodu@gmail.com",
+  phone: "0336 797 260",
+  location: "TP. Hồ Chí Minh, Việt Nam",
+  birthday: "20/05/2005",
   socials: [
     { label: "GitHub", href: GITHUB_URL, icon: "github" },
     {
       label: "Email",
-      href: "mailto:ducx5494@ut.edu.vn",
+      href: "mailto:pherocaodu@gmail.com",
       icon: "email",
     },
   ],

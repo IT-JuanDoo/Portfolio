@@ -1,5 +1,8 @@
+"use client";
+
 import { Logo } from "@/components/ui/Logo";
 import { profile } from "@/data/profile";
+import { useT } from "@/i18n/LocaleContext";
 import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 
@@ -10,21 +13,21 @@ const iconMap = {
 };
 
 export function Footer() {
+  const t = useT();
   const year = new Date().getFullYear();
 
   return (
     <footer className="relative z-10 border-t border-white/[0.06] py-12">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 px-4 md:flex-row md:px-6">
         <div className="flex flex-col items-center gap-4 md:flex-row md:items-center">
           <Logo compact />
           <div className="text-center md:text-left">
             <p className="text-sm text-muted">
               © {year}{" "}
-              <span className="text-foreground">{profile.name}</span>
+              <span className="text-foreground">{profile.name}</span> · {t.footer.rights}
             </p>
             <p className="mt-1 font-mono text-[10px] tracking-wider text-muted/70">
-              Designed & built by CXD · Next.js
+              {t.footer.builtBy}
             </p>
           </div>
         </div>

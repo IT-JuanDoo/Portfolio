@@ -13,10 +13,10 @@ interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "relative overflow-hidden bg-accent text-background font-semibold shadow-[0_0_32px_rgba(46,232,197,0.35)] hover:shadow-[0_0_40px_rgba(46,232,197,0.5)] hover:brightness-110 before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/0 before:via-white/20 before:to-white/0 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-500",
+    "bg-white text-black font-semibold hover:bg-neutral-200",
   outline:
-    "border-gradient bg-transparent text-foreground hover:text-accent hover:shadow-[0_0_24px_rgba(46,232,197,0.1)]",
-  ghost: "text-muted hover:text-accent",
+    "border border-white/15 bg-transparent text-foreground hover:border-white/40 hover:text-white",
+  ghost: "text-muted hover:text-foreground",
 };
 
 export function Button({

@@ -18,6 +18,9 @@ export interface Profile {
   typingPhrases: string[];
   focusLine: string;
   email: string;
+  phone?: string;
+  location?: string;
+  birthday?: string;
   socials: SocialLink[];
 }
 

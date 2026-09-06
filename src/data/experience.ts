@@ -2,38 +2,34 @@ import type { ExperienceItem } from "@/types";
 
 export const experiences: ExperienceItem[] = [
   {
-    id: "intern-2023",
-    role: "Developer Intern",
-    company: "UTH",
-    period: "2025 — nay",
+    id: "education",
+    role: "Information Technology",
+    company: "Ho Chi Minh City University of Transport (UTH)",
+    period: "2023 — 2027",
     description: [
-      "Developed and maintained REST APIs for internal products.",
-      "Wrote unit tests, participated in code reviews, and documented APIs",
-      "Worked with PostgreSQL, Git, and the Agile/Scrum development process.",
+      "Studying Information Technology at UTH, specializing in software engineering and full-stack web development.",
+      "Coursework: Data Structures & Algorithms, Database Systems, OOP, Web Technologies, Software Engineering.",
     ],
-    technologies: ["C#", "ASP.NET Core", "PostgreSQL", "Git"],
+    technologies: ["Java", "SQL", "JavaScript", "PHP"],
   },
   {
     id: "personal-projects",
-    role: "Personal Projects",
+    role: "Full-Stack Developer (Personal Projects)",
     company: "Self-directed",
-    period: "2024 — 2025",
+    period: "2025 — nay",
     description: [
-      "AURA Retinal Screening System — a full-stack healthcare project using C#, TypeScript, and Python.",
-      "BookingsTickets — a movie ticket booking system built with PHP and JavaScript.",
-      "CNPM-5 — a software engineering project, deployed on GitHub Pages.",
+      "TravelMind — AI travel planning platform with NestJS, PostgreSQL, Prisma and React 18; integrates Google Gemini API.",
+      "AURA Retinal Screening System — healthcare UI with secure auth, dashboards and notification flows.",
+      "BookingsTickets — PHP + MySQL movie ticket booking with role-based admin panel and modular frontend.",
     ],
-    technologies: ["C#", "TypeScript", "PHP", "Python", "Docker"],
-  },
-  {
-    id: "education",
-    role: "Information Technology",
-    company: "UTH",
-    period: "2022 — 2026",
-    description: [
-      "Specializing in Software Engineering, focusing on backend development.",
-      "Key courses: Data Structures, Database Systems, Object-Oriented Programming.",
+    technologies: [
+      "React 18",
+      "TypeScript",
+      "NestJS",
+      "PHP",
+      "PostgreSQL",
+      "MySQL",
+      "Docker",
     ],
-    technologies: ["Java", "SQL", "Algorithms"],
   },
 ];

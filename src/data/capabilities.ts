@@ -5,32 +5,32 @@ export const capabilities: Capability[] = [
     id: "frontend",
     title: "Frontend Development",
     description:
-      "Design and implement clear APIs with versioning, validation, and OpenAPI/Swagger documentation.",
+      "Build responsive, accessible UIs with modern frameworks. Strong focus on component architecture, state management, and pixel-perfect Tailwind styling.",
     icon: "frontend",
-    tags: ["Html", "Css", "JavaScript", "TypeScript"],
-  },
-  {
-    id: "database",
-    title: "Databases",
-    description:
-      "Data modeling, query optimization, migration, and relationships between SQL and NoSQL.",
-    icon: "database",
-    tags: ["PostgreSQL", "MySQL", "MongoDB"],
+    tags: ["React 18", "TypeScript", "JavaScript", "HTML5", "CSS3", "TailwindCSS", "Vite"],
   },
   {
     id: "backend",
     title: "Backend Development",
     description:
-      "Design and maintain high-performance backend services with scalability and security.",
+      "Design and build RESTful APIs with authentication, role-based authorization, validation and clean layered architecture. Secure by default.",
     icon: "backend",
-    tags: ["C#", "Python", "PHP"],
+    tags: ["Node.js", "NestJS", "PHP", "JavaScript"],
   },
   {
-    id: "testing",
-    title: "Testing",
+    id: "database",
+    title: "Databases",
     description:
-      "Unit test, integration test and ensure code quality before merging.",
-    icon: "testing",
-    tags: ["Postman"],
+      "Data modeling, query optimization, migrations, and relationships across SQL databases. Practical experience with both PostgreSQL and MySQL.",
+    icon: "database",
+    tags: ["PostgreSQL", "MySQL", "Prisma ORM"],
+  },
+  {
+    id: "devops",
+    title: "DevOps & Tools",
+    description:
+      "Containerize applications with Docker / Docker Compose in a monorepo layout. Version control with Git, CI-friendly workflows.",
+    icon: "devops",
+    tags: ["Git", "Docker", "Docker Compose"],
   },
 ];

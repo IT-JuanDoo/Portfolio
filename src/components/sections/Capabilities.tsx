@@ -2,13 +2,16 @@
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { capabilities } from "@/data/capabilities";
+import { useT } from "@/i18n/LocaleContext";
 import {
   Boxes,
   Cloud,
   Database,
   FlaskConical,
   Lock,
+  Layout,
   Network,
+  Server,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -19,26 +22,33 @@ const iconMap = {
   architecture: Boxes,
   devops: Cloud,
   testing: FlaskConical,
+  frontend: Layout,
+  backend: Server,
 };
 
+const CAPABILITY_ORDER = ["frontend", "backend", "database", "devops"] as const;
+
 export function Capabilities() {
+  const t = useT();
+
   return (
     <section id="capabilities" className="relative py-24 md:py-32">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/15 to-transparent" />
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
-          index="01"
-          label="capabilities"
-          title="Skill & Tool"
-          description="The skills and programming languages ​​I have used in my projects."
+          index={t.sections.capabilities.index}
+          label={t.sections.capabilities.label}
+          title={t.sections.capabilities.title}
+          description={t.sections.capabilities.description}
         />
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {capabilities.map((cap, index) => {
-            const Icon = iconMap[cap.icon as keyof typeof iconMap] ?? Network;
+          {CAPABILITY_ORDER.map((key, index) => {
+            const capDict = t.capabilities[key];
+            const dataTags = capabilities.find((c) => c.id === key)?.tags ?? [];
+            const Icon = iconMap[key as keyof typeof iconMap] ?? Network;
             return (
               <motion.article
-                key={cap.id}
+                key={key}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
@@ -49,16 +59,16 @@ export function Capabilities() {
                   <Icon size={20} />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground">
-                  {cap.title}
+                  {capDict.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {cap.description}
+                  {capDict.description}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {cap.tags.map((tag) => (
+                  {dataTags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-md bg-white/5 px-2 py-0.5 font-mono text-[10px] text-accent/80"
+                      className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-foreground"
                     >
                       {tag}
                     </span>

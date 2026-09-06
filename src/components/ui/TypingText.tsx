@@ -3,7 +3,7 @@
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 interface TypingTextProps {
-  phrases: string[];
+  phrases: readonly string[];
 }
 
 export function TypingText({ phrases }: TypingTextProps) {

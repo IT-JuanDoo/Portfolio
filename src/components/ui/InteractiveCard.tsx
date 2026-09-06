@@ -1,114 +1,90 @@
 "use client";
 
 import { siteConfig } from "@/data/profile";
-import { cn } from "@/lib/utils";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useT } from "@/i18n/LocaleContext";
 
 export function InteractiveCard() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
+  const t = useT();
+  const i = t.interactive;
 
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const lines: Array<{ prompt?: boolean; text: string; tone?: "muted" | "accent" | "accent2" | "warm" }> = [
+    { prompt: true, text: i.whoamiPrompt },
+    { text: i.whoamiResult, tone: "muted" },
+    { prompt: true, text: i.aboutPrompt },
+    { text: i.aboutName, tone: "accent" },
+    { text: i.aboutRole, tone: "accent" },
+    { text: i.aboutStack, tone: "accent2" },
+    { text: i.aboutFocus, tone: "muted" },
+    { prompt: true, text: i.lsPrompt },
+    { text: i.lsTravelmind, tone: "warm" },
+    { text: i.lsAura, tone: "warm" },
+    { text: i.lsBookings, tone: "warm" },
+  ];
 
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), {
-    stiffness: 200,
-    damping: 20,
-  });
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), {
-    stiffness: 200,
-    damping: 20,
-  });
-
-  function handleMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-    setActive(true);
-  }
-
-  function handleLeave() {
-    x.set(0);
-    y.set(0);
-    setActive(false);
-  }
+  const userHost = siteConfig.handle.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <div className="relative flex items-center justify-center">
-      <motion.div
-        ref={ref}
-        onMouseMove={handleMove}
-        onMouseLeave={handleLeave}
-        style={{ rotateX, rotateY, transformPerspective: 1200 }}
-        className={cn(
-          "glass-panel border-gradient relative h-96 w-full max-w-2xl cursor-pointer overflow-hidden rounded-2xl p-10 md:h-[28rem]",
-          active && "shadow-[0_0_80px_rgba(46,232,197,0.12)]",
-        )}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.06] via-transparent to-accent-2/[0.04]" />
-        <div className="absolute top-3 right-3 font-mono text-[9px] text-muted/60">
-          v1.0 · {siteConfig.name}
-        </div>
-
-        <div className="flex h-full items-center justify-center">
-          <div className="relative">
-            <motion.div
-              className="absolute inset-[-28px] rounded-full border border-dashed border-accent/20 animate-orbit"
-              aria-hidden
-            />
-            <motion.div
-              className="absolute inset-[-14px] rounded-full border border-accent-2/15"
-              animate={{ scale: [1, 1.04, 1] }}
-              transition={{ duration: 4, repeat: Infinity }}
-              aria-hidden
-            />
-            <div className="absolute inset-0 rounded-full bg-accent/15 blur-3xl" />
-            <div className="relative flex h-36 w-36 items-center justify-center rounded-full border border-accent/40 bg-gradient-to-br from-accent/15 to-accent-2/10 shadow-[0_0_60px_rgba(46,232,197,0.2)]">
-              <span className="font-display text-4xl font-bold tracking-tighter text-gradient-brand">
-                {siteConfig.monogram}
-              </span>
-            </div>
+    <div className="relative w-full max-w-2xl">
+      <div className="glass-panel overflow-hidden rounded-xl">
+        {/* Title bar */}
+        <div className="flex items-center gap-2 border-b border-white/[0.06] bg-white/[0.02] px-4 py-3">
+          <div className="flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
           </div>
-        </div>
-
-        <div className="absolute right-4 bottom-4 left-4 rounded-lg border border-white/5 bg-background/40 p-3 font-mono text-[10px] text-white/35 backdrop-blur-sm">
-          <span className="text-accent">const</span> dev = {"{"}
-          <br />
-          &nbsp;&nbsp;name:{" "}
-          <span className="text-accent-warm/90">&quot;Cao Xuan Du&quot;</span>,
-          <br />
-          &nbsp;&nbsp;alias:{" "}
-          <span className="text-accent-2/90">
-            &quot;{siteConfig.monogram}&quot;
+          <span className="mx-auto font-mono text-[11px] tracking-wide text-muted">
+            {i.windowTitle}
           </span>
-          ,
-          <br />
-          &nbsp;&nbsp;stack:{" "}
-          <span className="text-accent/90">&quot;Devloper&quot;</span>
-          <br />
-          {"}"};
+          <span className="font-mono text-[10px] text-muted/60">
+            v1.0 · {siteConfig.name}
+          </span>
         </div>
-      </motion.div>
 
-      <motion.div
-        className="absolute top-1/2 -right-2 hidden -translate-y-1/2 md:block lg:-right-14"
-        animate={{ scale: active ? 1.08 : [1, 1.04, 1] }}
-        transition={{ duration: 2.5, repeat: active ? 0 : Infinity }}
-      >
-        <div className="relative flex flex-col items-center">
-          <div className="glow-dot h-3 w-3 rounded-full bg-accent" />
-          <motion.div
-            className="absolute inset-0 rounded-full border border-accent/50"
-            animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-          <p className="mt-3 max-w-[90px] text-center font-mono text-[8px] leading-tight tracking-[0.15em] text-accent/70 uppercase">
-            Di chuột để xoay
-          </p>
+        {/* Terminal body */}
+        <div className="px-5 py-5 sm:px-6 sm:py-6">
+          <pre className="m-0 overflow-x-auto font-mono text-[12.5px] leading-[1.7] sm:text-[13px]">
+            {lines.map((line, idx) =>
+              line.prompt ? (
+                <div key={idx} className="text-foreground/90">
+                  <span className="text-accent">{i.promptUser}@{userHost}</span>
+                  <span className="text-muted">:</span>
+                  <span className="text-accent-2">~</span>
+                  <span className="text-muted">{i.prompt} </span>
+                  <span>{line.text}</span>
+                </div>
+              ) : (
+                <div
+                  key={idx}
+                  className={
+                    line.tone === "accent"
+                      ? "text-accent/90"
+                      : line.tone === "accent2"
+                        ? "text-accent-2/90"
+                        : line.tone === "warm"
+                          ? "text-accent-warm/90"
+                          : "text-muted"
+                  }
+                >
+                  {line.text}
+                </div>
+              ),
+            )}
+            <div className="mt-1 flex items-center text-foreground/90">
+              <span className="text-accent">{i.promptUser}@{userHost}</span>
+              <span className="text-muted">:</span>
+              <span className="text-accent-2">~</span>
+              <span className="text-muted">{i.prompt} </span>
+              <span className="ml-1 inline-block h-[1em] w-2 animate-pulse bg-accent/80 align-middle" />
+            </div>
+          </pre>
         </div>
-      </motion.div>
+      </div>
+
+      {/* Footer hint */}
+      <p className="mt-3 text-center font-mono text-[10px] tracking-[0.2em] text-muted/60 uppercase">
+        {i.shortcut}
+      </p>
     </div>
   );
 }

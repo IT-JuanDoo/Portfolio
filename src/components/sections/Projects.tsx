@@ -3,22 +3,32 @@
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { projects } from "@/data/projects";
+import { useT } from "@/i18n/LocaleContext";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 
+// Map id project → key trong dict `projectsData`
+const PROJECT_KEYS = {
+  travelmind: "travelmind",
+  "aura-retinal": "aura",
+  "bookings-tickets": "bookings",
+} as const;
+
+type ProjectKey = keyof typeof PROJECT_KEYS;
+
 export function Projects() {
+  const t = useT();
   const featured = projects.filter((p) => p.featured);
   const others = projects.filter((p) => !p.featured);
 
   return (
     <section id="projects" className="relative py-24 md:py-32">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-2/15 to-transparent" />
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
-          index="02"
-          label="projects"
-          title="Featured Projects"
-          description="Backend projects I have built to practice and demonstrate my skills."
+          index={t.sections.projects.index}
+          label={t.sections.projects.label}
+          title={t.sections.projects.title}
+          description={t.sections.projects.description}
         />
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -28,6 +38,7 @@ export function Projects() {
               project={project}
               index={index}
               featured
+              dictKey={PROJECT_KEYS[project.id as ProjectKey]}
             />
           ))}
         </div>
@@ -35,11 +46,16 @@ export function Projects() {
         {others.length > 0 && (
           <>
             <h3 className="mt-16 mb-6 font-mono text-xs tracking-widest text-muted uppercase">
-              Other Projects
+              {t.sections.projects.otherProjects}
             </h3>
             <div className="grid gap-6 md:grid-cols-2">
               {others.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                  dictKey={PROJECT_KEYS[project.id as ProjectKey]}
+                />
               ))}
             </div>
           </>
@@ -49,15 +65,17 @@ export function Projects() {
   );
 }
 
-function ProjectCard({
-  project,
-  index,
-  featured,
-}: {
+interface ProjectCardProps {
   project: (typeof projects)[0];
   index: number;
   featured?: boolean;
-}) {
+  dictKey?: string;
+}
+
+function ProjectCard({ project, index, featured, dictKey }: ProjectCardProps) {
+  const t = useT();
+  const localized = dictKey ? t.projectsData[dictKey as keyof typeof t.projectsData] : undefined;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -69,11 +87,13 @@ function ProjectCard({
       }`}
     >
       <div className="mb-3 font-mono text-[10px] tracking-widest text-accent uppercase">
-        {featured ? "★ featured" : "repo"}
+        {featured ? t.sections.projects.featured : t.sections.projects.repo}
       </div>
-      <h3 className="text-lg font-semibold text-foreground">{project.title}</h3>
+      <h3 className="text-lg font-semibold text-foreground">
+        {localized?.title ?? project.title}
+      </h3>
       <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-        {project.description}
+        {localized?.description ?? project.description}
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         {project.tags.map((tag) => (
@@ -94,7 +114,7 @@ function ProjectCard({
             className="px-3 py-1.5 text-xs"
           >
             <Github size={14} />
-            Code
+            {t.sections.projects.code}
           </Button>
         )}
         {project.demo && (
@@ -105,7 +125,7 @@ function ProjectCard({
             className="px-3 py-1.5 text-xs"
           >
             <ExternalLink size={14} />
-            Demo
+            {t.sections.projects.demo}
           </Button>
         )}
       </div>

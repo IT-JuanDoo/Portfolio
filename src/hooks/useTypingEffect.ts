@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 interface UseTypingEffectOptions {
-  phrases: string[];
+  phrases: readonly string[];
   typingSpeed?: number;
   deletingSpeed?: number;
   pauseDuration?: number;
